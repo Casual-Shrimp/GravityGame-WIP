@@ -43,14 +43,15 @@ public class Movement : MonoBehaviour
         jumpPad = Physics.CheckSphere(groundCheck.position, groundDistance, jumpPadMask);
 
         bool gravityChange = gravityPad;
+        Debug.Log(gravity);
         
-        if (isGrounded && velocity.y < 0)
+        if (isGrounded && velocity.y < 0 || isCeiling && velocity.y < -3f)
         {
             velocity.y = -2f;
         }
 
-        if (isCeiling && velocity.y > 0)
-        {
+        if (isCeiling && velocity.y > 0 || isGrounded && velocity.y > 0f)
+        { 
             velocity.y = 2f;
         }
 
@@ -62,7 +63,7 @@ public class Movement : MonoBehaviour
         if (jumpPad)
         {
             velocity.y = 0;
-            velocity.y += 15;
+            velocity.y += 13;
         }
 
         float x = Input.GetAxis("Horizontal");
@@ -77,7 +78,7 @@ public class Movement : MonoBehaviour
         }
         
         
-        if (Input.GetButtonDown("Jump") && isCeiling)
+        if (Input.GetButtonDown("Jump") && isCeiling ||Input.GetButtonDown("Jump") && isGrounded && gravity > 0)
         {
             velocity.y = jumpHeight * gravity * -0.5f;
         }
@@ -88,7 +89,7 @@ public class Movement : MonoBehaviour
             velocity.y = velocity.y * -1;
             transform.Rotate(0, 0, 180);
         }
-
+        
         
         controller.Move(move * speed * Time.deltaTime);
 
@@ -96,7 +97,7 @@ public class Movement : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
 
-    
+        Dash();
 
     }
     
@@ -107,7 +108,7 @@ public class Movement : MonoBehaviour
         
         if (dash)
         {
-            speed = 15;
+            speed = 11;
         }
         else if (!dash)
         {

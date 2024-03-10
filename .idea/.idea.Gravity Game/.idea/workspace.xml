@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9fd02292-8f61-4943-8714-9e1deb8566ab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Gravity Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gravity Game/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level 1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level 1.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test stuff.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test stuff.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Movement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Movement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +101,10 @@
       <workItem from="1707647785917" duration="1002000" />
       <workItem from="1707815608518" duration="1826000" />
       <workItem from="1708073717076" duration="933000" />
-      <workItem from="1708075547284" duration="1275000" />
+      <workItem from="1708075547284" duration="1614000" />
+      <workItem from="1708077301251" duration="746000" />
+      <workItem from="1708078189223" duration="222000" />
+      <workItem from="1708856306119" duration="1801000" />
     </task>
     <servers />
   </component>

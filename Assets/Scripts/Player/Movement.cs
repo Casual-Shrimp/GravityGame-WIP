@@ -11,8 +11,8 @@ public class Movement : MonoBehaviour
 
     public CharacterController controller;
 
-    public float speed = 10;
-    public float gravity = -9.81f;
+    public float speed;
+    public float gravity = -19.62f;
     public float jumpHeight = 1f;
 
 
@@ -31,12 +31,13 @@ public class Movement : MonoBehaviour
     public bool jumpPad;
 
 
-
-
+    private void Start()
+    {
+        speed = 10;
+    }
 
     void Update()
     {
-
         //creates little invisible sphere beneath the player to check for those parameters
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         isCeiling = Physics.CheckSphere(groundCheck.position, groundDistance, ceilingMask);
@@ -47,23 +48,88 @@ public class Movement : MonoBehaviour
         //and touch it again you will be set to "normal gravity"
         bool gravityChange = gravityPad;
 
-        //those "if statements" reset the velocity brought by the physics with the player controller to not always accelerate
-        if (isGrounded && velocity.y < 0 || isCeiling && velocity.y < -3f && gravity < 0)
+        //inverts the gravity when bool is set to true
+        if (gravityChange)
+        {
+            gravity = gravity * -1;
+            velocity.y = velocity.y * -1;
+            //need to rework this thing to smoothly turn 180 degrees
+            transform.Rotate(0, 0, 180);
+        }
+        Debug.Log(speed);
+
+    }
+
+    private void FixedUpdate()
+    {
+        ThisBoiMoving();
+        ThisBoiSpeedy();
+        velocity.y += gravity * Time.deltaTime;
+
+        
+        //calls everything that is supposed to happen when gravity is normal meaning < 0
+        if (gravity < 0)
+        {
+            NormalGravity();
+        }
+        
+        //calls everything that is supposed to happen when gravity is reversed meaning > 0  
+        if (gravity > 0)
+        {
+            ReverseGravity();
+        }
+    }
+
+    void ThisBoiMoving()
+    {
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+        Vector3 move = transform.right * x + transform.forward * z;
+        controller.Move(move * (speed * Time.deltaTime));
+        controller.Move(velocity * Time.deltaTime);
+    }
+
+    void ThisBoiSpeedy()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            speed *= 1.01f;
+            if (speed >= 15f)
+            {
+                speed = 15f;
+            }
+        }
+        else
+        {
+            speed /= 1.02f;
+            if (speed <= 10)
+            { 
+                speed = 10f;
+            }    
+            
+
+        }
+    }
+    
+    void NormalGravity()
+    {
+        //resets velocity to -2 when any ground surface is touched
+        if (isGrounded || isCeiling)
         {
             velocity.y = -2f;
         }
-
-        if (isCeiling && velocity.y > 0 || isGrounded && velocity.y > 0f && gravity > 0)
+        
+        if (Input.GetButton("Jump") && isGrounded || Input.GetButton("Jump") && isCeiling)
         {
-            velocity.y = 2f;
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
-
-        //caps the maximum velocity when falling 
-        if (velocity.y > 20f)
+        
+        //caps the maximum velocity when falling
+        if (velocity.y > 100f)
         {
-            velocity.y = 20f;
+            velocity.y = 100f;
         }
-
+        
         //as the name states, pushes you high in the air when the player touches the layer "JumpPad"
         //when the player touches the layer, it turns the bool "jumpPad" true for enough time to execute the code beneath
         if (jumpPad)
@@ -71,48 +137,28 @@ public class Movement : MonoBehaviour
             velocity.y = 0;
             velocity.y += 13;
         }
+        
+    }
 
-        //checks if gravity is inverted to let you use the jump pad on the ceiling
-        if (jumpPad && gravity > 0)
+    void ReverseGravity()
+    {
+        if (isGrounded || isCeiling)
+        {
+            velocity.y = 2f;
+        }
+
+        if (Input.GetButton("Jump") && isCeiling || Input.GetButton("Jump") && isGrounded)
+        {
+            velocity.y = jumpHeight * gravity * -0.5f;
+        }
+        
+        //pushes you in the air
+        if (jumpPad)
         {
             velocity.y = 0;
             velocity.y -= 13;
         }
-
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        Vector3 move = transform.right * x + transform.forward * z;
-
-        //lets you jump on the ground
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            Debug.Log(velocity.y);
-            Debug.Log(gravity);
-        }
-
-        //lets you jup when with inverted gravity on any (yet coded) layer
-        if (Input.GetButtonDown("Jump") && isCeiling || Input.GetButtonDown("Jump") && isGrounded && gravity > 0)
-        {
-            velocity.y = jumpHeight * gravity * -0.5f;
-        }
-
-        //inverts the gravity when bool is set to true
-        if (gravityChange)
-        {
-            gravity = gravity * -1;
-            velocity.y = velocity.y * -1;
-            transform.Rotate(0, 0, 180);
-        }
-
-
-        controller.Move(move * speed * Time.deltaTime);
-
-        velocity.y += gravity * Time.deltaTime;
-
-        controller.Move(velocity * Time.deltaTime);
-
     }
 }
-    
+
+ 

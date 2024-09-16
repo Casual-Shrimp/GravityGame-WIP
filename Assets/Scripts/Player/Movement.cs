@@ -16,13 +16,18 @@ public class Movement : MonoBehaviour
     public float jumpHeight = 1f;
 
 
-
     public Transform groundCheck;
     public float groundDistance = 0.1f;
     public LayerMask groundMask;
     public LayerMask ceilingMask;
     public LayerMask gravityPadMask;
     public LayerMask jumpPadMask;
+    
+    //fov stuff
+    public float startFOV = 72f;
+    public float currentFOV;
+    public float playerSetFOV = 72f;
+    private Camera _firstPerson;
 
     public Vector3 velocity;
     public bool isGrounded;
@@ -34,6 +39,8 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         speed = 10;
+        currentFOV = startFOV;
+        _firstPerson = Camera.main;
     }
 
     void Update()
@@ -56,7 +63,6 @@ public class Movement : MonoBehaviour
             //need to rework this thing to smoothly turn 180 degrees
             transform.Rotate(0, 0, 180);
         }
-        Debug.Log(speed);
 
     }
 
@@ -98,6 +104,9 @@ public class Movement : MonoBehaviour
             {
                 speed = 15f;
             }
+
+            currentFOV += 20f;
+
         }
         else
         {
@@ -105,8 +114,9 @@ public class Movement : MonoBehaviour
             if (speed <= 10)
             { 
                 speed = 10f;
-            }    
-            
+            }
+
+            currentFOV = playerSetFOV;
 
         }
     }

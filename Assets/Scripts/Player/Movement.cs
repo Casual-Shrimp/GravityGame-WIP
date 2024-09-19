@@ -30,6 +30,9 @@ public class Movement : MonoBehaviour
     public bool gravityPad;
     public bool jumpPad;
 
+    private float gravityChangeTime = 2f;
+    private float currentTime;
+    private float passedTime = 0;
 
     private void Start()
     {
@@ -43,10 +46,7 @@ public class Movement : MonoBehaviour
         isCeiling = Physics.CheckSphere(groundCheck.position, groundDistance, ceilingMask);
         gravityPad = Physics.CheckSphere(groundCheck.position, groundDistance, gravityPadMask);
         jumpPad = Physics.CheckSphere(groundCheck.position, groundDistance, jumpPadMask);
-
-        //this means, that if the player touches the "gravity pad" the CURRENT gravity will be inverted meaning that if you are upside down
-        //and touch it again you will be set to "normal gravity"
-        
+        currentTime = Time.time;
     }
 
     private void FixedUpdate()
@@ -56,15 +56,20 @@ public class Movement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         bool gravityChange = gravityPad;
-
+        
+        
+        
         //inverts the gravity when bool is set to true
-        if (gravityChange)
+        if (gravityChange && passedTime < currentTime)
         {
             gravity = gravity * -1;
             velocity.y = velocity.y * -1;
             //need to rework this thing to smoothly turn 180 degrees
             transform.Rotate(0, 0, 180);
+            passedTime = currentTime + gravityChangeTime;
         }
+        Debug.Log(passedTime);
+        Debug.Log(currentTime);
 
         
         //calls everything that is supposed to happen when gravity is normal meaning < 0

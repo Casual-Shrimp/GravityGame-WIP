@@ -23,11 +23,6 @@ public class Movement : MonoBehaviour
     public LayerMask gravityPadMask;
     public LayerMask jumpPadMask;
     
-    //fov stuff
-    public float startFOV = 72f;
-    public float currentFOV;
-    public float playerSetFOV = 72f;
-    private Camera _firstPerson;
 
     public Vector3 velocity;
     public bool isGrounded;
@@ -39,8 +34,6 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         speed = 10;
-        currentFOV = startFOV;
-        _firstPerson = Camera.main;
     }
 
     void Update()
@@ -53,6 +46,15 @@ public class Movement : MonoBehaviour
 
         //this means, that if the player touches the "gravity pad" the CURRENT gravity will be inverted meaning that if you are upside down
         //and touch it again you will be set to "normal gravity"
+        
+    }
+
+    private void FixedUpdate()
+    {
+        ThisBoiMoving();
+        ThisBoiSpeedy();
+        velocity.y += gravity * Time.deltaTime;
+
         bool gravityChange = gravityPad;
 
         //inverts the gravity when bool is set to true
@@ -63,14 +65,6 @@ public class Movement : MonoBehaviour
             //need to rework this thing to smoothly turn 180 degrees
             transform.Rotate(0, 0, 180);
         }
-
-    }
-
-    private void FixedUpdate()
-    {
-        ThisBoiMoving();
-        ThisBoiSpeedy();
-        velocity.y += gravity * Time.deltaTime;
 
         
         //calls everything that is supposed to happen when gravity is normal meaning < 0
@@ -104,8 +98,7 @@ public class Movement : MonoBehaviour
             {
                 speed = 15f;
             }
-
-            currentFOV += 20f;
+            
 
         }
         else
@@ -115,8 +108,7 @@ public class Movement : MonoBehaviour
             { 
                 speed = 10f;
             }
-
-            currentFOV = playerSetFOV;
+            
 
         }
     }

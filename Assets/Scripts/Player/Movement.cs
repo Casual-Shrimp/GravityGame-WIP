@@ -5,6 +5,7 @@ using System.Numerics;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using Vector3 = UnityEngine.Vector3;
+using Quaternion = UnityEngine.Quaternion;
 
 public class Movement : MonoBehaviour
 {
@@ -30,13 +31,23 @@ public class Movement : MonoBehaviour
     public bool gravityPad;
     public bool jumpPad;
 
-    private float gravityChangeTime = 2f;
+    private float gravityChangeTime = 1.2f;
     private float currentTime;
     private float passedTime = 0;
+    
+    //rotation
+    public bool shouldRotate = false;
+    private float rotationSpeed = 1.5f;
+    
+    private Quaternion startRotation;
+    private Quaternion targetRotation;
+    private float rotationProgress = 0f;
 
     private void Start()
     {
         speed = 10;
+        startRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
+        targetRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y + 180, 180);
     }
 
     void Update()
@@ -47,6 +58,22 @@ public class Movement : MonoBehaviour
         gravityPad = Physics.CheckSphere(groundCheck.position, groundDistance, gravityPadMask);
         jumpPad = Physics.CheckSphere(groundCheck.position, groundDistance, jumpPadMask);
         currentTime = Time.time;
+        if (shouldRotate)
+        {
+            rotationProgress += rotationSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, rotationProgress);
+            
+            if (rotationProgress >= 1f)
+            {
+                shouldRotate = false;
+                rotationProgress = 0f;
+                
+                // Swap start and target rotations for the next rotation
+                Quaternion temp = startRotation;
+                startRotation = targetRotation;
+                targetRotation = temp;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -65,11 +92,9 @@ public class Movement : MonoBehaviour
             gravity = gravity * -1;
             velocity.y = velocity.y * -1;
             //need to rework this thing to smoothly turn 180 degrees
-            transform.Rotate(0, 0, 180);
+            ToggleRotation();
             passedTime = currentTime + gravityChangeTime;
         }
-        Debug.Log(passedTime);
-        Debug.Log(currentTime);
 
         
         //calls everything that is supposed to happen when gravity is normal meaning < 0
@@ -83,6 +108,11 @@ public class Movement : MonoBehaviour
         {
             ReverseGravity();
         }
+    }
+     public void ToggleRotation()
+    {
+        shouldRotate = true;
+        rotationProgress = 0f;
     }
 
     void ThisBoiMoving()

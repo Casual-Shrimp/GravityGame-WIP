@@ -46,8 +46,8 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         speed = 10;
-        startRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
-        targetRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 180);
+        startRotation = Quaternion.Euler(0, transform.rotation.y, transform.rotation.z);
+        targetRotation = Quaternion.Euler(180, transform.rotation.y, transform.rotation.z );
     }
 
     void Update()
@@ -61,7 +61,7 @@ public class Movement : MonoBehaviour
         if (shouldRotate)
         {
             rotationProgress += rotationSpeed * Time.deltaTime;
-            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, rotationProgress);
+            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, rotationProgress);
             
             if (rotationProgress >= 1f)
             {
@@ -173,7 +173,7 @@ public class Movement : MonoBehaviour
         if (jumpPad)
         {
             velocity.y = 0;
-            velocity.y += 13;
+            velocity.y += 9;
         }
         
     }
@@ -194,7 +194,7 @@ public class Movement : MonoBehaviour
         if (jumpPad)
         {
             velocity.y = 0;
-            velocity.y -= 13;
+            velocity.y -= 9;
         }
     }
 }

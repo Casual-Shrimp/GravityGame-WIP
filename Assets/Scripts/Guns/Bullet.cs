@@ -4,23 +4,20 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private float gravity = -9.81f;
-    private float bulletSpeed = 100f;
-    private Rigidbody rb;
-    private float drag = 0.5f;
+    float bulletSpeed = 50f;
+    
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.AddForce(new Vector3(bulletSpeed * Time.deltaTime, 0, 0));
     }
 
     private void FixedUpdate()
     {
-        BulletTragectory();
+        transform.Translate(Vector3.forward * bulletSpeed * Time.deltaTime);
+        Destroy(this.gameObject, 10f);
     }
 
-    void BulletTragectory()
+    void OnCollisionEnter(Collision collision)
     {
-        rb.velocity = new Vector3((bulletSpeed * Time.deltaTime) - drag, 0, 0);
+        Destroy(this.gameObject);
     }
 }

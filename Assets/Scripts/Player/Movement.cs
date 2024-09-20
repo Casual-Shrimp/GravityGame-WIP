@@ -47,7 +47,7 @@ public class Movement : MonoBehaviour
     {
         speed = 10;
         startRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
-        targetRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y + 180, 180);
+        targetRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 180);
     }
 
     void Update()
@@ -93,6 +93,7 @@ public class Movement : MonoBehaviour
             velocity.y = velocity.y * -1;
             //need to rework this thing to smoothly turn 180 degrees
             ToggleRotation();
+            //transform.Rotate(new Vector3(transform.rotation.x, transform.rotation.y));
             passedTime = currentTime + gravityChangeTime;
         }
 

@@ -37,7 +37,7 @@ public class Movement : MonoBehaviour
     
     //rotation
     public bool shouldRotate = false;
-    private float rotationSpeed = 1.5f;
+    private float rotationSpeed = 1.8f;
     
     private Quaternion startRotation;
     private Quaternion targetRotation;
@@ -46,8 +46,10 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         speed = 10;
-        startRotation = Quaternion.Euler(0, transform.rotation.y, transform.rotation.z);
-        targetRotation = Quaternion.Euler(180, transform.rotation.y, transform.rotation.z );
+        startRotation = transform.rotation; // Start with the current rotation
+
+        // Set targetRotation to rotate 180 degrees on the z-axis, flipping the player upside down
+        targetRotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z + 180);
     }
 
     void Update()
@@ -58,22 +60,7 @@ public class Movement : MonoBehaviour
         gravityPad = Physics.CheckSphere(groundCheck.position, groundDistance, gravityPadMask);
         jumpPad = Physics.CheckSphere(groundCheck.position, groundDistance, jumpPadMask);
         currentTime = Time.time;
-        if (shouldRotate)
-        {
-            rotationProgress += rotationSpeed * Time.deltaTime;
-            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, rotationProgress);
-            
-            if (rotationProgress >= 1f)
-            {
-                shouldRotate = false;
-                rotationProgress = 0f;
-                
-                // Swap start and target rotations for the next rotation
-                Quaternion temp = startRotation;
-                startRotation = targetRotation;
-                targetRotation = temp;
-            }
-        }
+       
     }
 
     private void FixedUpdate()
@@ -84,7 +71,17 @@ public class Movement : MonoBehaviour
 
         bool gravityChange = gravityPad;
         
-        
+        if (shouldRotate)
+        {
+            rotationProgress += rotationSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, rotationProgress);
+
+            if (rotationProgress >= 1f)
+            {
+                shouldRotate = false;
+                rotationProgress = 0f;
+            }
+        }
         
         //inverts the gravity when bool is set to true
         if (gravityChange && passedTime < currentTime)
@@ -110,10 +107,16 @@ public class Movement : MonoBehaviour
             ReverseGravity();
         }
     }
-     public void ToggleRotation()
+    public void ToggleRotation()
     {
         shouldRotate = true;
         rotationProgress = 0f;
+
+        // Set startRotation to the current rotation
+        startRotation = transform.rotation;
+
+        // Set targetRotation to flip 180 degrees on the local z-axis
+        targetRotation = startRotation * Quaternion.Euler(0, 0, 180);
     }
 
     void ThisBoiMoving()
@@ -173,7 +176,7 @@ public class Movement : MonoBehaviour
         if (jumpPad)
         {
             velocity.y = 0;
-            velocity.y += 9;
+            velocity.y += 20;
         }
         
     }
@@ -194,7 +197,7 @@ public class Movement : MonoBehaviour
         if (jumpPad)
         {
             velocity.y = 0;
-            velocity.y -= 9;
+            velocity.y -= 20;
         }
     }
 }

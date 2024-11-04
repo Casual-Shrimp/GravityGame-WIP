@@ -1,14 +1,18 @@
 using System;
 using UnityEngine;
 using UnityEngine.Animations;
+using Random = UnityEngine.Random;
 
 public class Pistol : MonoBehaviour
 {
     public GameObject bullet;
-    private float fireRate = 0.1f;
-    private float currentTime;
-    private float passedTime;
+    private float _fireRate = 0.25f;
+    private float _currentTime;
+    private float _passedTime;
     public GameObject nozzle;
+    private float _x;
+    private float _y;
+    private float _z;
 
     private void Start()
     {
@@ -18,12 +22,19 @@ public class Pistol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentTime = Time.time;
-        if (Input.GetKeyDown(KeyCode.Mouse0) && passedTime < currentTime)
+        _currentTime = Time.time;
+        Fire();
+    }
+
+    void Fire()
+    {
+        if (Input.GetKey(KeyCode.Mouse0) && _passedTime < _currentTime)
         {
             Instantiate(bullet, nozzle.transform.position, transform.rotation);
-            passedTime = currentTime + fireRate;
+            _passedTime = _currentTime + _fireRate;
         }
+
+
     }
 
 }

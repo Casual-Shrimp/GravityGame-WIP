@@ -5,36 +5,20 @@ using Random = UnityEngine.Random;
 
 public class Pistol : MonoBehaviour
 {
-    public GameObject bullet;
-    private float _fireRate = 0.25f;
-    private float _currentTime;
-    private float _passedTime;
-    public GameObject nozzle;
-    private float _x;
-    private float _y;
-    private float _z;
+    public float damage = 10f;
+    public float range = 200;
 
-    private void Start()
+    private void Update()
     {
-     
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        _currentTime = Time.time;
-        Fire();
-    }
-
-    void Fire()
-    {
-        if (Input.GetKey(KeyCode.Mouse0) && _passedTime < _currentTime)
+        if(Input.GetKeyDown(KeyCode.Mouse1))
         {
-            Instantiate(bullet, nozzle.transform.position, transform.rotation);
-            _passedTime = _currentTime + _fireRate;
+            Shoot();
+            Debug.Log("This ist the left mouse button");
         }
-
-
     }
 
+    void Shoot()
+    {
+
+    }
 }

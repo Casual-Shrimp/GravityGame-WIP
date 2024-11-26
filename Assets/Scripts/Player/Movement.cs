@@ -18,7 +18,7 @@ public class Movement : MonoBehaviour
 
 
     public Transform groundCheck;
-    public float groundDistance = 0.1f;
+    public float groundDistance = 0.4f;
     public LayerMask groundMask;
     public LayerMask ceilingMask;
     public LayerMask gravityPadMask;
@@ -34,14 +34,15 @@ public class Movement : MonoBehaviour
     private float gravityChangeTime = 1.2f;
     private float currentTime;
     private float passedTime = 0;
-    
-    //rotation
+
+    [Header("Rotation")]
     public bool shouldRotate = false;
     private float rotationSpeed = 1.8f;
     
     private Quaternion startRotation;
     private Quaternion targetRotation;
     private float rotationProgress = 0f;
+
 
     private void Start()
     {
@@ -67,6 +68,7 @@ public class Movement : MonoBehaviour
     {
         ThisBoiMoving();
         ThisBoiSpeedy();
+        Crouch();
         velocity.y += gravity * Time.deltaTime;
 
         bool gravityChange = gravityPad;
@@ -107,6 +109,8 @@ public class Movement : MonoBehaviour
             ReverseGravity();
         }
     }
+
+
     public void ToggleRotation()
     {
         shouldRotate = true;
@@ -128,29 +132,6 @@ public class Movement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-    void ThisBoiSpeedy()
-    {
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            speed *= 1.01f;
-            if (speed >= 15f)
-            {
-                speed = 15f;
-            }
-            
-
-        }
-        else
-        {
-            speed /= 1.02f;
-            if (speed <= 10)
-            { 
-                speed = 10f;
-            }
-            
-
-        }
-    }
     
     void NormalGravity()
     {
@@ -199,6 +180,37 @@ public class Movement : MonoBehaviour
             velocity.y = 0;
             velocity.y -= 20;
         }
+    }
+
+    void ThisBoiSpeedy()
+    {
+        //
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            speed *= 1.01f;
+            if (speed >= 15f)
+            {
+                speed = 15f;
+            }
+
+
+        }
+        else
+        {
+            speed /= 1.02f;
+            if (speed <= 10)
+            {
+                speed = 10f;
+            }
+
+
+        }
+    }
+
+    void Crouch()
+    {
+    
+
     }
 }
 

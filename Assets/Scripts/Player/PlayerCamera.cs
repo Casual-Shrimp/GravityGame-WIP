@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    public float sensitivity = 100f;
+    private float sensitivity = 200f;
     public Transform player;
     float _xRotation;
 
@@ -16,14 +16,13 @@ public class PlayerCamera : MonoBehaviour
 
     void Update()
     { 
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
+        float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
 
         _xRotation -= mouseY;
         _xRotation = Mathf.Clamp(_xRotation, -80, 80);
 
         transform.localRotation = Quaternion.Euler(_xRotation, 0, 0);
         player.Rotate(Vector3.up * mouseX);
-        Debug.Log(sensitivity);
     }
 }

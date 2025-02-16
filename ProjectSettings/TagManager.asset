@@ -9,6 +9,7 @@ TagManager:
   - Arm
   - bullet
   - Nozzle
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - Ceiling
   - GravityPad
   - JumpPad
-  - 
-  - 
+  - Enemy
+  - Player
   - Camera
   - 
   - 

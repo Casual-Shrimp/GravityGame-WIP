@@ -6,19 +6,36 @@ using Random = UnityEngine.Random;
 public class Pistol : MonoBehaviour
 {
     public float damage = 10f;
-    public float range = 200;
+    public float range = 100f;
 
-    private void Update()
+    public Camera fpsCam;
+
+
+
+    private void FixedUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse1))
+        if(Input.GetKey(KeyCode.Mouse0))
         {
             Shoot();
-            Debug.Log("This ist the left mouse button");
         }
     }
 
-    void Shoot()
+    public void Shoot()
     {
+        RaycastHit hit;
+        Vector3 fwd  = fpsCam.transform.TransformDirection(Vector3.forward);
+        if(Physics.Raycast(fpsCam.transform.position, fwd, out hit, range))
+        {
+            Debug.Log(hit.transform.name);
+            Enemy enemy = hit.transform.GetComponent<Enemy>();
+            Debug.DrawRay(fpsCam.transform.position, fwd * range, Color.green, 1f);
 
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
+        }
+
+     
     }
 }

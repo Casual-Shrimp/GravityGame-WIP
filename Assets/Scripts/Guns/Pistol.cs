@@ -18,6 +18,7 @@ public class Pistol : MonoBehaviour
         {
             Shoot();
         }
+        Shoot();
     }
 
     public void Shoot()
@@ -34,6 +35,7 @@ public class Pistol : MonoBehaviour
             {
                 enemy.TakeDamage(damage);
             }
+            Debug.Log($"Hit {hit.collider.name} on layer {LayerMask.LayerToName(hit.transform.gameObject.layer)}");
         }
 
      

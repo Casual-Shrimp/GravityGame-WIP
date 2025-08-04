@@ -18,24 +18,28 @@ public class Pistol : MonoBehaviour
         {
             Shoot();
         }
-        Shoot();
     }
 
     public void Shoot()
     {
         RaycastHit hit;
-        Vector3 fwd  = fpsCam.transform.TransformDirection(Vector3.forward);
-        if(Physics.Raycast(fpsCam.transform.position, fwd, out hit, range))
+        Vector3 fwd = fpsCam.transform.TransformDirection(Vector3.forward);
+        if (Physics.Raycast(fpsCam.transform.position, fwd, out hit, range))
         {
             Debug.Log(hit.transform.name);
             Enemy enemy = hit.transform.GetComponent<Enemy>();
-            Debug.DrawRay(fpsCam.transform.position, fwd * range, Color.green, 1f);
-
-            if (enemy != null)
+            if (enemy) //when you hit the enemy the ray is turned green
             {
-                enemy.TakeDamage(damage);
+                Debug.DrawRay(fpsCam.transform.position, fwd * range, Color.green, 1f);
             }
-            Debug.Log($"Hit {hit.collider.name} on layer {LayerMask.LayerToName(hit.transform.gameObject.layer)}");
+            else //when any other object is hit that is not the enemy the ray turns red
+            {
+                Debug.DrawRay(fpsCam.transform.position, fwd * range, Color.red, 1f);
+            }
+        }
+        else //if void is hit the ray turns blue
+        {
+            Debug.DrawRay(fpsCam.transform.position, fwd * range, Color.blue, 1f);
         }
 
      

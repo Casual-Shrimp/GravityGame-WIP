@@ -7,15 +7,19 @@ public class Pistol : MonoBehaviour
 {
     public float damage = 10f;
     public float range = 100f;
-
+    private float delay = 0.3f;
+    private float hasShot;
     public Camera fpsCam;
+
 
 
 
     private void FixedUpdate()
     {
-        if(Input.GetKey(KeyCode.Mouse0))
+
+        if (Input.GetKey(KeyCode.Mouse0) && Time.time > hasShot)
         {
+            hasShot = Time.time + delay;
             Shoot();
         }
     }
@@ -31,6 +35,7 @@ public class Pistol : MonoBehaviour
             if (enemy) //when you hit the enemy the ray is turned green
             {
                 Debug.DrawRay(fpsCam.transform.position, fwd * range, Color.green, 1f);
+                enemy.TakeDamage(1);
             }
             else //when any other object is hit that is not the enemy the ray turns red
             {
@@ -42,6 +47,9 @@ public class Pistol : MonoBehaviour
             Debug.DrawRay(fpsCam.transform.position, fwd * range, Color.blue, 1f);
         }
 
-     
+        if (hit.rigidbody != null)
+        {
+            hit.rigidbody.AddForce(-hit.normal * 100);
+        }
     }
 }

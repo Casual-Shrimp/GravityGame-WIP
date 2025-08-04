@@ -2,19 +2,21 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float health = 50f;
+    private float health = 5f;
+    public Rigidbody enemyRb;
+
+    public void Start()
+    {
+        enemyRb = gameObject.GetComponent<Rigidbody>();
+    }
 
     public void TakeDamage(float amount)
     {
         health -= amount;
-        if(health <= 0)
+        if (health <= 0)
         {
-            Die();
+            Destroy(gameObject);
         }
     }
 
-    void Die()
-    {
-        Destroy(gameObject);
-    }
 }

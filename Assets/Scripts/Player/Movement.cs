@@ -43,6 +43,9 @@ public class Movement : MonoBehaviour
     private Quaternion targetRotation;
     private float rotationProgress = 0f;
 
+    private Camera mainCam;
+    private float baseFOV;
+
 
     private void Start()
     {
@@ -51,6 +54,8 @@ public class Movement : MonoBehaviour
 
         // Set targetRotation to rotate 180 degrees on the z-axis, flipping the player upside down
         targetRotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z + 180);
+        mainCam = Camera.main;
+        baseFOV = mainCam.fieldOfView;
     }
 
     void Update()
@@ -184,28 +189,42 @@ public class Movement : MonoBehaviour
 
     void ThisBoiSpeedy()
     {
-        //
-        if (Input.GetKey(KeyCode.LeftShift))
+        bool pressedShift = Input.GetKey(KeyCode.LeftShift);
+        bool pressedDirection = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
+
+        if (pressedShift && pressedDirection)
         {
-            speed *= 1.01f;
+            speed *= 1.03f;
             if (speed >= 15f)
             {
                 speed = 15f;
             }
 
-
+            {
+                mainCam.fieldOfView *= 1.03f;
+            }
+            if (mainCam.fieldOfView >= 90)
+            {
+                mainCam.fieldOfView = 90;
+            }
         }
         else
         {
-            speed /= 1.02f;
+            speed /= 1.05f;
             if (speed <= 10)
             {
                 speed = 10f;
             }
 
-
+            mainCam.fieldOfView /= 1.05f;
+            if (mainCam.fieldOfView <= baseFOV)
+            {
+                mainCam.fieldOfView = baseFOV;
+            }
         }
     }
+    
+    
 
     void Crouch()
     {

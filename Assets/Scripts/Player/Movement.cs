@@ -23,7 +23,7 @@ public class Movement : MonoBehaviour
     public LayerMask ceilingMask;
     public LayerMask gravityPadMask;
     public LayerMask jumpPadMask;
-    
+
 
     public Vector3 velocity;
     public bool isGrounded;
@@ -37,8 +37,8 @@ public class Movement : MonoBehaviour
 
     [Header("Rotation")]
     public bool shouldRotate = false;
-    private float rotationSpeed = 1.8f;
-    
+    public float rotationSpeed = 1.8f;
+
     private Quaternion startRotation;
     private Quaternion targetRotation;
     private float rotationProgress = 0f;
@@ -66,7 +66,7 @@ public class Movement : MonoBehaviour
         gravityPad = Physics.CheckSphere(groundCheck.position, groundDistance, gravityPadMask);
         jumpPad = Physics.CheckSphere(groundCheck.position, groundDistance, jumpPadMask);
         currentTime = Time.time;
-       
+
     }
 
     private void FixedUpdate()
@@ -74,10 +74,10 @@ public class Movement : MonoBehaviour
         ThisBoiMoving();
         ThisBoiSpeedy();
         Crouch();
-        velocity.y += gravity * Time.deltaTime;
+        velocity.y += (gravity * 2) * Time.deltaTime;
 
         bool gravityChange = gravityPad;
-        
+
         if (shouldRotate)
         {
             rotationProgress += rotationSpeed * Time.deltaTime;
@@ -89,25 +89,24 @@ public class Movement : MonoBehaviour
                 rotationProgress = 0f;
             }
         }
-        
+
         //inverts the gravity when bool is set to true
         if (gravityChange && passedTime < currentTime)
         {
             gravity = gravity * -1;
             velocity.y = velocity.y * -1;
-            //need to rework this thing to smoothly turn 180 degrees
             ToggleRotation();
-            //transform.Rotate(new Vector3(transform.rotation.x, transform.rotation.y));
+            transform.Rotate(new Vector3(transform.rotation.x, transform.rotation.y));
             passedTime = currentTime + gravityChangeTime;
         }
 
-        
+
         //calls everything that is supposed to happen when gravity is normal meaning < 0
         if (gravity < 0)
         {
             NormalGravity();
         }
-        
+
         //calls everything that is supposed to happen when gravity is reversed meaning > 0  
         if (gravity > 0)
         {
@@ -137,7 +136,7 @@ public class Movement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-    
+
     void NormalGravity()
     {
         //resets velocity to -2 when any ground surface is touched
@@ -145,26 +144,26 @@ public class Movement : MonoBehaviour
         {
             velocity.y = -2f;
         }
-        
+
         if (Input.GetButton("Jump") && isGrounded || Input.GetButton("Jump") && isCeiling)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
-        
+
         //caps the maximum velocity when falling
         if (velocity.y > 100f)
         {
             velocity.y = 100f;
         }
-        
+
         //as the name states, pushes you high in the air when the player touches the layer "JumpPad"
         //when the player touches the layer, it turns the bool "jumpPad" true for enough time to execute the code beneath
         if (jumpPad)
         {
             velocity.y = 0;
-            velocity.y += 20;
+            velocity.y += 40;
         }
-        
+
     }
 
     void ReverseGravity()
@@ -178,12 +177,12 @@ public class Movement : MonoBehaviour
         {
             velocity.y = jumpHeight * gravity * -0.5f;
         }
-        
+
         //pushes you in the air
         if (jumpPad)
         {
             velocity.y = 0;
-            velocity.y -= 20;
+            velocity.y -= 40;
         }
     }
 
@@ -195,9 +194,9 @@ public class Movement : MonoBehaviour
         if (pressedShift && pressedDirection)
         {
             speed *= 1.03f;
-            if (speed >= 15f)
+            if (speed >= 20f)
             {
-                speed = 15f;
+                speed = 20f;
             }
 
             {
@@ -223,14 +222,13 @@ public class Movement : MonoBehaviour
             }
         }
     }
-    
-    
 
     void Crouch()
     {
-    
+
 
     }
+
 }
 
  

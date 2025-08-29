@@ -12,8 +12,6 @@ public class Pistol : MonoBehaviour
     public Camera fpsCam;
 
 
-
-
     private void FixedUpdate()
     {
 

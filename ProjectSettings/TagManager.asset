@@ -7,9 +7,8 @@ TagManager:
   - Ground
   - Ceiling
   - Arm
-  - bullet
-  - Nozzle
   - Enemy
+  - Pistol
   layers:
   - Default
   - TransparentFX

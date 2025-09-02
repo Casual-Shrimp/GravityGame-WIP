@@ -20,6 +20,8 @@ public class Weapon : MonoBehaviour
         {
             Debug.Log("Pistol detected");
             Instantiate(weapon, weaponSlot);
+            var script = weapon.GetComponent<Pistol>();
+            script.fpsCam = Camera.main;
         }
     }
 }

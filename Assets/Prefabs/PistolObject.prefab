@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6188520687008430088}
   - component: {fileID: 1473322845281977813}
   - component: {fileID: 8637721162777765090}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5193914367503172172}
   - component: {fileID: -4534298400226288386}
-  m_Layer: 13
+  - component: {fileID: -3288110140111830884}
+  m_Layer: 0
   m_Name: PistolObject
   m_TagString: Pistol
   m_Icon: {fileID: 0}
@@ -111,7 +112,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4854789370204608758}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000147514, y: 0.0000001475139, z: 0.70710707, w: 0.7071066}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.6319051, y: 0.7500006, z: -3.594607}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
@@ -120,7 +121,7 @@ Transform:
   - {fileID: 6208552436579431821}
   - {fileID: 2664736553763289678}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &-4534298400226288386
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -137,11 +138,23 @@ SphereCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 3
   m_Center: {x: 0, y: 2.5, z: 2}
+--- !u!114 &-3288110140111830884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4854789370204608758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c9c7401c4761e40b7c549aab0c863a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7272654791330927286
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +166,7 @@ GameObject:
   - component: {fileID: 2664736553763289678}
   - component: {fileID: 7195836147704720321}
   - component: {fileID: 8141028768446037405}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Toppart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +252,7 @@ GameObject:
   - component: {fileID: 6208552436579431821}
   - component: {fileID: 3488760113218566178}
   - component: {fileID: 2370242663404527176}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

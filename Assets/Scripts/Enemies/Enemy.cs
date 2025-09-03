@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private float health = 5f;
+    private float health = 15f;
     public Rigidbody enemyRb;
 
     public void Start()
@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Debug.Log(health);
     }
 
 }

@@ -5,17 +5,16 @@ using Random = UnityEngine.Random;
 
 public class Pistol : MonoBehaviour
 {
-    public float damage = 10f;
+    private float damage = 1f;
     public float range = 100f;
-    private float delay = 0.3f;
+    private float delay = 0.4f;
     private float hasShot;
     public Camera fpsCam;
 
 
     private void FixedUpdate()
     {
-
-        if (Input.GetKey(KeyCode.Mouse0) && Time.time > hasShot)
+        if (Input.GetKey(KeyCode.Mouse0) && Time.time > hasShot) //checks if the player can shoot 
         {
             hasShot = Time.time + delay;
             Shoot();
@@ -28,12 +27,12 @@ public class Pistol : MonoBehaviour
         Vector3 fwd = fpsCam.transform.TransformDirection(Vector3.forward);
         if (Physics.Raycast(fpsCam.transform.position, fwd, out hit, range))
         {
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
             Enemy enemy = hit.transform.GetComponent<Enemy>();
             if (enemy) //when you hit the enemy the ray is turned green
             {
                 Debug.DrawRay(fpsCam.transform.position, fwd * range, Color.green, 1f);
-                enemy.TakeDamage(1);
+                enemy.TakeDamage(damage);
             }
             else //when any other object is hit that is not the enemy the ray turns red
             {
@@ -44,8 +43,8 @@ public class Pistol : MonoBehaviour
         {
             Debug.DrawRay(fpsCam.transform.position, fwd * range, Color.blue, 1f);
         }
-
-        if (hit.rigidbody != null)
+        
+        if (hit.rigidbody != null) //adds a force to the hit rigidbody
         {
             hit.rigidbody.AddForce(-hit.normal * 100);
         }

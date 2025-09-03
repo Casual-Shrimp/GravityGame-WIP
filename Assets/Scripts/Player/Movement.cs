@@ -14,7 +14,7 @@ public class Movement : MonoBehaviour
 
     public float speed;
     public float gravity = -19.62f;
-    public float jumpHeight = 1f;
+    public float jumpHeight = 2f;
 
 
     public Transform groundCheck;
@@ -145,7 +145,7 @@ public class Movement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if (Input.GetButton("Jump") && isGrounded || Input.GetButton("Jump") && isCeiling)
+        if (Input.GetButton("Jump") && (isGrounded || isCeiling))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
@@ -173,9 +173,9 @@ public class Movement : MonoBehaviour
             velocity.y = 2f;
         }
 
-        if (Input.GetButton("Jump") && isCeiling || Input.GetButton("Jump") && isGrounded)
+        if (Input.GetButton("Jump") && (isCeiling || isGrounded))
         {
-            velocity.y = jumpHeight * gravity * -0.5f;
+            velocity.y = -1 * Mathf.Sqrt(jumpHeight * 2f * gravity);
         }
 
         //pushes you in the air
@@ -186,7 +186,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    void ThisBoiSpeedy()
+    void ThisBoiSpeedy() //Codebase for running
     {
         bool pressedShift = Input.GetKey(KeyCode.LeftShift);
         bool pressedDirection = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);

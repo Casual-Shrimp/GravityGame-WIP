@@ -14,14 +14,16 @@ public class Weapon : MonoBehaviour
     {
 
     }
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
+
         if (other.gameObject.CompareTag("Pistol"))
         {
             Debug.Log("Pistol detected");
             Instantiate(weapon, weaponSlot);
             var script = weapon.GetComponent<Pistol>();
             script.fpsCam = Camera.main;
+            Destroy(other.gameObject);
         }
     }
 }

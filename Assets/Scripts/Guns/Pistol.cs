@@ -11,6 +11,10 @@ public class Pistol : MonoBehaviour
     private float hasShot;
     public Camera fpsCam;
 
+    private void Start()
+    {
+        fpsCam = Camera.main;
+    }
 
     private void FixedUpdate()
     {

@@ -506,3 +506,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeadc00c8af5cab4e98a6e182d99aacb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSlot: {fileID: 9208839400952995789}
+  weapon: {fileID: 0}

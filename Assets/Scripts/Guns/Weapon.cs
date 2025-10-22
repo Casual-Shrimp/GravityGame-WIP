@@ -4,12 +4,12 @@ public class Weapon : MonoBehaviour
 {
     public Transform weaponSlot;
     public GameObject weapon;
+
+    [SerializeField] GameObject[] Arsenal = new GameObject[2];
     
     void Start()
     {
     }
-
-    // Update is called once per frame
     void Update()
     {
 
@@ -19,9 +19,9 @@ public class Weapon : MonoBehaviour
 
         if (other.gameObject.CompareTag("Pistol"))
         {
-            Debug.Log("Pistol detected");
-            Instantiate(weapon, weaponSlot);
+            weapon = Arsenal[0];
             var script = weapon.GetComponent<Pistol>();
+            Instantiate(weapon, weaponSlot);
             script.fpsCam = Camera.main;
             Destroy(other.gameObject);
         }

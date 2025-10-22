@@ -508,3 +508,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponSlot: {fileID: 9208839400952995789}
   weapon: {fileID: 0}
+  Arsenal:
+  - {fileID: 4854789370204608758, guid: c618db33fbe1719458202b19a3597064, type: 3}
+  - {fileID: 0}

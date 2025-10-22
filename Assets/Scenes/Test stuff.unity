@@ -1644,6 +1644,63 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
   m_RespectSceneVisibilityWhenBakingGI: 0
+--- !u!1001 &1863859334
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4854789370204608758, guid: e91fe58cccc401d4c938b4a3f90cf791, type: 3}
+      propertyPath: m_Name
+      value: PistolObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 5193914367503172172, guid: e91fe58cccc401d4c938b4a3f90cf791, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.6445568
+      objectReference: {fileID: 0}
+    - target: {fileID: 5193914367503172172, guid: e91fe58cccc401d4c938b4a3f90cf791, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5193914367503172172, guid: e91fe58cccc401d4c938b4a3f90cf791, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.7830484
+      objectReference: {fileID: 0}
+    - target: {fileID: 5193914367503172172, guid: e91fe58cccc401d4c938b4a3f90cf791, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5193914367503172172, guid: e91fe58cccc401d4c938b4a3f90cf791, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5193914367503172172, guid: e91fe58cccc401d4c938b4a3f90cf791, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5193914367503172172, guid: e91fe58cccc401d4c938b4a3f90cf791, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5193914367503172172, guid: e91fe58cccc401d4c938b4a3f90cf791, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5193914367503172172, guid: e91fe58cccc401d4c938b4a3f90cf791, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5193914367503172172, guid: e91fe58cccc401d4c938b4a3f90cf791, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e91fe58cccc401d4c938b4a3f90cf791, type: 3}
 --- !u!1 &1921902754
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,6 +2062,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8188763777738223239, guid: 4e55cea55b26e2045a40167f1b0ec968, type: 3}
+      propertyPath: 'Arsenal.Array.data[0]'
+      value: 
+      objectReference: {fileID: 4854789370204608758, guid: c618db33fbe1719458202b19a3597064, type: 3}
     - target: {fileID: 8238528783109132399, guid: 4e55cea55b26e2045a40167f1b0ec968, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2068,3 +2129,4 @@ SceneRoots:
   - {fileID: 1314198840}
   - {fileID: 1152430852}
   - {fileID: 1558059747}
+  - {fileID: 1863859334}

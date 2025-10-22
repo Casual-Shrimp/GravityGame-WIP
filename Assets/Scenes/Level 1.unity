@@ -863,11 +863,15 @@ PrefabInstance:
     - target: {fileID: 8188763777738223239, guid: 4e55cea55b26e2045a40167f1b0ec968, type: 3}
       propertyPath: weapon
       value: 
-      objectReference: {fileID: 4854789370204608758, guid: c618db33fbe1719458202b19a3597064, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 8188763777738223239, guid: 4e55cea55b26e2045a40167f1b0ec968, type: 3}
       propertyPath: weaponSlot
       value: 
       objectReference: {fileID: 1067540176}
+    - target: {fileID: 8188763777738223239, guid: 4e55cea55b26e2045a40167f1b0ec968, type: 3}
+      propertyPath: 'Arsenal.Array.data[0]'
+      value: 
+      objectReference: {fileID: 4854789370204608758, guid: c618db33fbe1719458202b19a3597064, type: 3}
     - target: {fileID: 8238528783109132399, guid: 4e55cea55b26e2045a40167f1b0ec968, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

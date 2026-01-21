@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "GravityGame-WIP.sln"
+    "dotnet.defaultSolution": "GravityGame-WIP.slnx"
 }

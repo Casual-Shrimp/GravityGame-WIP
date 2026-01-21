@@ -1,13 +1,10 @@
-using System;
 using UnityEngine;
-using UnityEngine.Animations;
-using Random = UnityEngine.Random;
 
-public class Pistol : MonoBehaviour
+public class Rifle : MonoBehaviour
 {
     private float damage = 1f;
     public float range = 100f;
-    private float delay = 0.48f;
+    private float delay = 0.1f;
     private float hasShot;
     public Camera fpsCam;
 
@@ -18,7 +15,7 @@ public class Pistol : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.Mouse0) && Time.time > hasShot) //checks if the player can shoot 
+        if(Input.GetKey(KeyCode.Mouse0) && Time.time > hasShot) //checks if the player can shoot 
         {
             hasShot = Time.time + delay;
             Shoot();

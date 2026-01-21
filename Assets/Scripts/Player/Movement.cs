@@ -71,13 +71,17 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ThisBoiMoving();
-        ThisBoiSpeedy();
-        Crouch();
+        //loading movement methodes
+        PlayerMove();
+        PlayerRun();
+
+        //grvaity physics
         velocity.y += (gravity * 2) * Time.deltaTime;
 
+        //checks if player has touched a "gravity pad"
         bool gravityChange = gravityPad;
-
+        
+        //handles the rotation of the player
         if (shouldRotate)
         {
             rotationProgress += rotationSpeed * Time.deltaTime;
@@ -127,7 +131,7 @@ public class Movement : MonoBehaviour
         targetRotation = startRotation * Quaternion.Euler(0, 0, 180);
     }
 
-    void ThisBoiMoving()
+    void PlayerMove()
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -157,7 +161,6 @@ public class Movement : MonoBehaviour
         }
 
         //as the name states, pushes you high in the air when the player touches the layer "JumpPad"
-        //when the player touches the layer, it turns the bool "jumpPad" true for enough time to execute the code beneath
         if (jumpPad)
         {
             velocity.y = 0;
@@ -166,6 +169,7 @@ public class Movement : MonoBehaviour
 
     }
 
+    //adjusted values for inverted gravity
     void ReverseGravity()
     {
         if (isGrounded || isCeiling)
@@ -186,25 +190,25 @@ public class Movement : MonoBehaviour
         }
     }
 
-    void ThisBoiSpeedy() //Codebase for running
+    void PlayerRun() //Codebase for running
     {
         bool pressedShift = Input.GetKey(KeyCode.LeftShift);
         bool pressedDirection = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
 
         if (pressedShift && pressedDirection)
         {
-            speed *= 1.03f;
-            if (speed >= 20f)
+            speed *= 1.02f;
+            if (speed >= 17f)
             {
-                speed = 20f;
+                speed = 17f;
             }
 
             {
                 mainCam.fieldOfView *= 1.03f;
             }
-            if (mainCam.fieldOfView >= 90)
+            if (mainCam.fieldOfView >= 80)
             {
-                mainCam.fieldOfView = 90;
+                mainCam.fieldOfView = 80;
             }
         }
         else
@@ -222,13 +226,6 @@ public class Movement : MonoBehaviour
             }
         }
     }
-
-    void Crouch()
-    {
-
-
-    }
-
 }
 
  
